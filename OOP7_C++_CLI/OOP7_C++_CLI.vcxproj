@@ -159,20 +159,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CCircle.cpp" />
+    <ClCompile Include="Composite.cpp" />
+    <ClCompile Include="CShape.cpp" />
     <ClCompile Include="CSquare.cpp" />
     <ClCompile Include="CTriangle.cpp" />
+    <ClCompile Include="Decorator.cpp" />
     <ClCompile Include="DrawingCanvas.cpp" />
-    <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="OOP7.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="CCircle.h" />
+    <ClInclude Include="Composite.h" />
     <ClInclude Include="CShape.h" />
     <ClInclude Include="CSquare.h" />
     <ClInclude Include="CTriangle.h" />
+    <ClInclude Include="Decorator.h" />
     <ClInclude Include="DrawingCanvas.h" />
-    <ClInclude Include="MyForm.h">
+    <ClInclude Include="OOP7.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Shape.h" />
     <ClInclude Include="MyStorage.h" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +188,11 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OOP7.resx">
+      <DependentUpon>OOP7.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

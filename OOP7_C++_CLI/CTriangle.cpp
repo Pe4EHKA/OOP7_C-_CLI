@@ -2,91 +2,46 @@
 
 void CTriangle::getVertices()
 {
-	// Левый нижний угол
-	Point a = Point(m_x - sideLength / 2, m_y + sideLength / 2);
+	Point a = Point(m_x - sideLength / 2, m_y + sideLength / 2); // Левый нижний угол
 	vertices[0] = a;
-	// Верхний угол
-	Point b = Point(m_x, m_y - sideLength / 2);
+	Point b = Point(m_x, m_y - sideLength / 2); // Верхний угол
 	vertices[1] = b;
-	// Правый нижний угол
-	Point c = Point(m_x + sideLength / 2, m_y + sideLength / 2);
+	Point c = Point(m_x + sideLength / 2, m_y + sideLength / 2); // Правый нижний угол
 	vertices[2] = c;
 }
 
-void CTriangle::draw(Pen^ penSelect, SolidBrush^ brush, Graphics^ g)
+void CTriangle::draw(Graphics^ g)
 {
 	getVertices();
-	if (select == true) {
-		penSelect->Color = Color::Black;
-		g->DrawRectangle(penSelect, vertices[0].X - 3, vertices[1].Y - 3, sideLength + 5, sideLength + 5);
-	}
-	else {
-		penSelect->Color = color_;
-	}
 	brush->Color = color_;
 	g->FillPolygon(brush, vertices);
 }
 
-void CTriangle::setColor(Color color)
+void CTriangle::save(StreamWriter^ stream)
 {
-	if (select) {
-		color_ = color;
-	}
+	String^ saveString = "Triangle\n" + "X = " + m_x.ToString() + "\nY = " + m_y.ToString() +
+		"\nsideLength = " + sideLength.ToString();
+	stream->WriteLine(saveString);
+	//  Cохраняем результат разделения строки цвета в массив colorParts 
+	//  и получаем последний элемент с помощью colorParts->Length - 1.
+	/*cli::array<String^>^ colorParts = color_.ToString()->Split(' ');
+	String^ color = colorParts[colorParts->Length - 1]->Trim('[', ']');*/
+	String^ color = color_.ToArgb().ToString();
+	stream->WriteLine("Color = " + color);
 }
 
-void CTriangle::changeSize(int dsize)
+void CTriangle::load(StreamReader^ stream)
 {
-	if (sideLength + dsize > 0) {
-		sideLength += dsize;
+	cli::array<String^>^ stats = gcnew cli::array<String^>(4);
+	for (int i = 0; i < 4; ++i) {
+		cli::array<String^>^ lineStat = stream->ReadLine()->Split(' ');
+		stats[i] = lineStat[lineStat->Length - 1];
 	}
-}
-
-void CTriangle::moveX(int dx, int beginForm, int endForm)
-{
-	getVertices();
-	if (vertices[0].X + dx < beginForm) {
-		m_x = beginForm + sideLength / 2;
-	}
-	else if (vertices[2].X + dx > endForm) {
-		m_x = endForm - sideLength / 2;
-	}
-	else {
-		m_x += dx;
-	}
-}
-
-void CTriangle::moveY(int dy, int beginForm, int endForm)
-{
-	getVertices();
-	if (vertices[1].Y + dy < beginForm) {
-		m_y = beginForm + sideLength / 2;
-	}
-	else if (vertices[2].Y + dy > endForm || vertices[0].Y + dy > endForm) {
-		m_y = endForm - sideLength / 2;
-	}
-	else {
-		m_y += dy;
-	}
-}
-
-void CTriangle::setX(int x)
-{
-	m_x = x;
-}
-
-void CTriangle::setY(int y)
-{
-	m_y = y;
-}
-
-void CTriangle::setSelect(bool set)
-{
-	select = set;
-}
-
-bool CTriangle::isSelected()
-{
-	return select;
+	m_x = Int32::Parse(stats[0]);
+	m_y = Int32::Parse(stats[1]);
+	sideLength = Int32::Parse(stats[2]);
+	//color_ = Color::FromName(stats[3]->Trim('[', ']'));
+	color_ = Color::FromArgb(Int32::Parse(stats[3]));
 }
 
 bool CTriangle::Contains(int x, int y)
