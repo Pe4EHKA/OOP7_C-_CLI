@@ -250,6 +250,11 @@ namespace OOP7CCLI {
 			   // openFileDialog1
 			   // 
 			   this->openFileDialog1->FileName = L"openFileDialog1";
+			   this->openFileDialog1->Filter = L"\"Text files(*.txt)|*.txt|All files(*.*)|*.*\"";
+			   // 
+			   // saveFileDialog1
+			   // 
+			   this->saveFileDialog1->Filter = L"\"Text files(*.txt)|*.txt|All files(*.*)|*.*\"";
 			   // 
 			   // OOP7
 			   // 
