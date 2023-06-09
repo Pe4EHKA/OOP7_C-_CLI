@@ -211,7 +211,8 @@ void DrawingCanvas::load(String^ filename, AbstractFactory^ factory)  // Çהוסü ט
 			shape = factory->createShape(stream->ReadLine());
 			Composite^ group = dynamic_cast<Composite^>(shape);
 			if (group) {
-				Shape^ sGroup;
+				group->load(stream, factory);
+				/*Shape^ sGroup;
 				cli::array<String^>^ countShape = stream->ReadLine()->Split(' ');
 				int countGroup = Int32::Parse(countShape[countShape->Length - 1]);
 				for (int j = 0; j < countGroup; ++j) {
@@ -221,7 +222,7 @@ void DrawingCanvas::load(String^ filename, AbstractFactory^ factory)  // Çהוסü ט
 						sGroup = gcnew Decorator(sGroup);
 						group->addToGroup(sGroup);
 					}
-				}
+				}*/
 				shapes->push_back(shape);
 			}
 			else {

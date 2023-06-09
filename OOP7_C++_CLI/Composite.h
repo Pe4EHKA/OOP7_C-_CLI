@@ -1,7 +1,9 @@
 #pragma once
 #include "Shape.h"
+#include "CShape.h"
 #include "MyStorage.h"
 #include "Decorator.h"
+#include "IAbstractFactory.h"
 
 // Единый интерфейс для работы с отдельными объектами и составными объектами
 ref class Composite : public Shape {
@@ -24,6 +26,7 @@ public:
 
 	virtual bool Contains(int x, int y) override;
 	virtual void save(StreamWriter^ stream) override;
+	void load(StreamReader^ stream, IAbstractFactory^ factory);
 
 	void setSelectColor(Color color);
 	int getCount();

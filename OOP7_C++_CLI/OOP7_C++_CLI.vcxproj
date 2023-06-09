@@ -176,6 +176,7 @@
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="Decorator.h" />
     <ClInclude Include="DrawingCanvas.h" />
+    <ClInclude Include="IAbstractFactory.h" />
     <ClInclude Include="OOP7.h">
       <FileType>CppForm</FileType>
     </ClInclude>

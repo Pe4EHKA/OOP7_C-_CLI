@@ -4,13 +4,14 @@
 #include "CSquare.h"
 #include "CTriangle.h"
 #include "Composite.h"
+#include "IAbstractFactory.h"
 
 using namespace System;
 
 // Определяет методы для создания объектов разных типов. 
-ref class AbstractFactory {
+ref class AbstractFactory : IAbstractFactory {
 public:
-	Shape^ createShape(String^ name) {
+	Shape^ createShape(String^ name) override {
 		if (name == "Circle") {
 			return gcnew CCircle();
 		}

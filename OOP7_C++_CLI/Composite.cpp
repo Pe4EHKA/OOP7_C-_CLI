@@ -83,6 +83,28 @@ void Composite::save(StreamWriter^ stream)
 	}
 }
 
+void Composite::load(StreamReader^ stream, IAbstractFactory^ factory)
+{
+	Shape^ sGroup;
+	cli::array<String^>^ countShape = stream->ReadLine()->Split(' ');
+	int countGroup = Int32::Parse(countShape[countShape->Length - 1]);
+	for (int i = 0; i < countGroup; ++i) {
+		sGroup = factory->createShape(stream->ReadLine());
+		if (dynamic_cast<Composite^>(sGroup)) {
+			dynamic_cast<Composite^>(sGroup)->load(stream, factory);
+			/*sGroup = gcnew Decorator(sGroup);
+			this->addToGroup(sGroup);*/
+		}
+		else if (sGroup != nullptr) {
+			dynamic_cast<CShape^>(sGroup)->load(stream);
+			/*sGroup = gcnew Decorator(sGroup);
+			this->addToGroup(sGroup);*/
+		}
+		sGroup = gcnew Decorator(sGroup);
+		this->addToGroup(sGroup);
+	}
+}
+
 void Composite::setSelectColor(Color color)
 {
 	for (int i = 0; i < composedShapes->get_size(); ++i) {
